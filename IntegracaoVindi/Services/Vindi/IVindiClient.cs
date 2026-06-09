@@ -1,6 +1,6 @@
 ﻿namespace IntegracaoVindi.Services.Vindi
 {
-    public interface IVindiClient
+    internal interface IVindiClient
     {
         #region Methods
 

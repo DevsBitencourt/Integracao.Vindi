@@ -1,6 +1,7 @@
+using IntegracaoVindi.Infrastructure.Factory;
+using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Services.Filters;
 using IntegracaoVindi.Services.Filters.Interfaces;
-using IntegracaoVindi.Services.Vindi.Api.Customers;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -11,9 +12,9 @@ namespace IntegracaoVindi.Infrastructure.DI
 
         #region Public Methods
 
-        public static IServiceCollection AddVindiIntegration(this IServiceCollection services)
+        public static IServiceCollection AddVindi(this IServiceCollection services)
         {
-            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddTransient<IVindiServiceFactory, VindiServiceFactory>();
             services.AddScoped<ICustomerFilter, CustomerFilter>();
 
             services.AddHttpClient("vindi", client =>

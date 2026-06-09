@@ -13,7 +13,7 @@ namespace IntegracaoVindi.Infrastructure.Factory
         public static ServiceProvider Create()
         {
             var services = new ServiceCollection();
-            services.AddVindiIntegration();
+            services.AddVindi();
 
             var provider = services.BuildServiceProvider();
 

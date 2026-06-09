@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IntegracaoVindi.Services.Vindi.Api.Customers
@@ -32,10 +33,10 @@ namespace IntegracaoVindi.Services.Vindi.Api.Customers
 
         #region Private Methods
 
-        private async Task<Response<T>> Fetch<T>(Func<HttpClient, Task<HttpResponseMessage>> action)
+        private async Task<Response<T>> Fetch<T>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> action, CancellationToken ct = default)
         {
             var client = CreateHttpClient();
-            using var response = await action(client);
+            using var response = await action(client, ct);
 
             if (!response.IsSuccessStatusCode)
                 return HandleError<T>(response);
@@ -63,32 +64,32 @@ namespace IntegracaoVindi.Services.Vindi.Api.Customers
 
         #region Public Methods
 
-        public async Task<Response<CustomerList>> GetAll(params QueryFilter[] filters)
+        public async Task<Response<CustomerList>> GetAll(QueryFilter[] filters, CancellationToken ct = default)
         {
             var query = QueryBuilder.Build(filters);
-            return await Fetch<CustomerList>(c => c.GetAsync(_endpoint + query));
+            return await Fetch<CustomerList>((c, t) => c.GetAsync(_endpoint + query, t), ct);
         }
 
-        public async Task<Response<Customer>> GetById(string id)
+        public async Task<Response<Customer>> GetById(string id, CancellationToken ct = default)
         {
-            return await Fetch<Customer>(c => c.GetAsync($"{_endpoint}/{id}"));
+            return await Fetch<Customer>((c, t) => c.GetAsync($"{_endpoint}/{id}", t), ct);
         }
 
-        public async Task<Response<Customer>> Delete(string id)
+        public async Task<Response<Customer>> Delete(string id, CancellationToken ct = default)
         {
-            return await Fetch<Customer>(c => c.DeleteAsync($"{_endpoint}/{id}"));
+            return await Fetch<Customer>((c, t) => c.DeleteAsync($"{_endpoint}/{id}", t), ct);
         }
 
-        public async Task<Response<Customer>> Create(Customer body)
-        {
-            var json = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-            return await Fetch<Customer>(c => c.PostAsync(_endpoint, json));
-        }
-
-        public async Task<Response<Customer>> Update(Customer body)
+        public async Task<Response<Customer>> Create(Customer body, CancellationToken ct = default)
         {
             var json = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-            return await Fetch<Customer>(c => c.PutAsync($"{_endpoint}/{body.Id}", json));
+            return await Fetch<Customer>((c, t) => c.PostAsync(_endpoint, json, t), ct);
+        }
+
+        public async Task<Response<Customer>> Update(Customer body, CancellationToken ct = default)
+        {
+            var json = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
+            return await Fetch<Customer>((c, t) => c.PutAsync($"{_endpoint}/{body.Id}", json, t), ct);
         }
 
         #endregion

@@ -1,6 +1,6 @@
 namespace IntegracaoVindi.Infrastructure.Exceptions
 {
-    internal class IntegrationCredentialsException : IntegrationException
+    public class IntegrationCredentialsException : IntegrationException
     {
         #region Properties
 

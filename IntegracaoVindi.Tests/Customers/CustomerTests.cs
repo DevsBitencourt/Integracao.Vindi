@@ -1,5 +1,6 @@
 using IntegracaoVindi.Infrastructure.DI;
 using IntegracaoVindi.Infrastructure.Factory;
+using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Services.Enums;
 using IntegracaoVindi.Services.Filters.Interfaces;
 using IntegracaoVindi.Services.Models;
@@ -23,9 +24,9 @@ namespace IntegracaoVindi.Tests.Customers
         {
             _provider = ServiceProviderFactory.Create();
 
-            _customer = _provider.GetRequiredService<ICustomerService>();
-            _customer.SetCredentials("");
+            var _factory = _provider.GetRequiredService<IVindiServiceFactory>();
 
+            _customer = _factory.Customers("");
             _filter = _provider.GetRequiredService<ICustomerFilter>();
 
         }

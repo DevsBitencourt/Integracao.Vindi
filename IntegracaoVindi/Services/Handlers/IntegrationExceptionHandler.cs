@@ -11,11 +11,11 @@ namespace IntegracaoVindi.Services.Handlers
         public static void ThrowIfUnauthorized(HttpResponseMessage response)
         {
             if (response.StatusCode == HttpStatusCode.Unauthorized)
-                throw new IntegrationCredentialsException(
+                throw new IntegrationAuthorizationException(
                     "Invalid or expired token. Please check your credentials.");
 
             if (response.StatusCode == HttpStatusCode.Forbidden)
-                throw new IntegrationCredentialsException(
+                throw new IntegrationForbiddenException(
                     "No permission to access this resource.");
         }
 
