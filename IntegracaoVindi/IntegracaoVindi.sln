@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36811.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracaoVindi", "IntegracaoVindi.csproj", "{D41C29BE-AE26-46B5-82F3-5C8D6D06D59B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracaoVindi.Tests", "..\IntegracaoVindi.Tests\IntegracaoVindi.Tests.csproj", "{36F97B97-142D-463D-9651-876A17E5A48B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D41C29BE-AE26-46B5-82F3-5C8D6D06D59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41C29BE-AE26-46B5-82F3-5C8D6D06D59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41C29BE-AE26-46B5-82F3-5C8D6D06D59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41C29BE-AE26-46B5-82F3-5C8D6D06D59B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F97B97-142D-463D-9651-876A17E5A48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F97B97-142D-463D-9651-876A17E5A48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F97B97-142D-463D-9651-876A17E5A48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F97B97-142D-463D-9651-876A17E5A48B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44EF6919-B96A-45FF-BFA6-EA5D7BE8E04A}
+	EndGlobalSection
+EndGlobal
