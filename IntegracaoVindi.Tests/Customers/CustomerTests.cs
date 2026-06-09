@@ -1,10 +1,8 @@
-using IntegracaoVindi.Infrastructure.DI;
 using IntegracaoVindi.Infrastructure.Factory;
 using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Services.Enums;
 using IntegracaoVindi.Services.Filters.Interfaces;
-using IntegracaoVindi.Services.Models;
-using IntegracaoVindi.Services.Vindi.Api.Customers;
+using IntegracaoVindi.Services.Vindi.Customers;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
@@ -39,7 +37,9 @@ namespace IntegracaoVindi.Tests.Customers
                 .CreatedAt(FilterOperator.GreaterThan, new DateTime(2018, 08, 21))
                 .RegistryCode("", ConditionalOperator.Or);
 
-            var response = await _customer.GetAll(_filter.ToFilters());
+            using var cts = new System.Threading.CancellationTokenSource();
+            
+            var response = await _customer.GetAll(cts.Token, _filter.ToFilters());
 
             Assert.That(response.Success, Is.True, response.Error);
         }

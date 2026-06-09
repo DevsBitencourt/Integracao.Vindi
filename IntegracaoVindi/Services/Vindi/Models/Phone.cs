@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace IntegracaoVindi.Services.Vindi.Api.Models
+namespace IntegracaoVindi.Services.Vindi.Models
 {
     public sealed class Phone
     {

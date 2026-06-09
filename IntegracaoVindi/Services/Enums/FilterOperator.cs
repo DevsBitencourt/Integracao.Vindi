@@ -22,7 +22,7 @@
         /// <summary>Less than (field&lt;value).</summary>
         LessThan,
 
-        // <summary>Less than or equal (field&lt;=value).</summary>
+        /// <summary>Less than or equal (field&lt;=value).</summary>
         LessThanOrEqual,
 
         /// <summary>Negation (-field:value).</summary>

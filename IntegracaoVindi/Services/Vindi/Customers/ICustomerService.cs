@@ -1,10 +1,10 @@
 using IntegracaoVindi.Services.Filters;
 using IntegracaoVindi.Services.Models;
-using IntegracaoVindi.Services.Vindi.Api.Customers.Models;
+using IntegracaoVindi.Services.Vindi.Customers.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IntegracaoVindi.Services.Vindi.Api.Customers
+namespace IntegracaoVindi.Services.Vindi.Customers
 {
     /// <summary>
     /// Defines operations for managing customers in the Vindi API.
@@ -18,7 +18,7 @@ namespace IntegracaoVindi.Services.Vindi.Api.Customers
         /// </summary>
         /// <param name="ct">Token to cancel the operation.</param>
         /// <param name="filters">Query filters. Combined with AND by default.</param>
-        Task<Response<CustomerList>> GetAll(QueryFilter[] filters, CancellationToken ct = default);
+        Task<Response<CustomerList>> GetAll(CancellationToken ct = default, params QueryFilter[] filters);
 
         /// <summary>
         /// Retrieves a customer by unique identifier.

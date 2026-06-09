@@ -1,4 +1,4 @@
-﻿using IntegracaoVindi.Services.Vindi.Api.Customers;
+﻿using IntegracaoVindi.Services.Vindi.Customers;
 
 namespace IntegracaoVindi.Infrastructure.Factory.Interfaces
 {

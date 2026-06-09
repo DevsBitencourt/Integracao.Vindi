@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace IntegracaoVindi.Services.Vindi.Api.Customers.Models
+namespace IntegracaoVindi.Services.Vindi.Customers.Models
 {
     public class CustomerList
     {

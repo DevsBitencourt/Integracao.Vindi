@@ -1,8 +1,8 @@
-﻿using IntegracaoVindi.Services.Vindi.Api.Models;
+﻿using IntegracaoVindi.Services.Vindi.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace IntegracaoVindi.Services.Vindi.Api.Customers.Models
+namespace IntegracaoVindi.Services.Vindi.Customers.Models
 {
     /// <summary>
     /// Represents a Vindi customer.
@@ -27,7 +27,7 @@ namespace IntegracaoVindi.Services.Vindi.Api.Customers.Models
         [JsonProperty(PropertyName = "registry_code")]
         public string? RegistryCode { get; set; }
 
-        // <summary>Customer address.</summary>
+        /// <summary>Customer address.</summary>
         [JsonProperty(PropertyName = "address")]
         public Address? Address { get; set; }
 

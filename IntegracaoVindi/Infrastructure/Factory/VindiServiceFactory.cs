@@ -1,5 +1,5 @@
 ﻿using IntegracaoVindi.Infrastructure.Factory.Interfaces;
-using IntegracaoVindi.Services.Vindi.Api.Customers;
+using IntegracaoVindi.Services.Vindi.Customers;
 using System.Net.Http;
 
 namespace IntegracaoVindi.Infrastructure.Factory

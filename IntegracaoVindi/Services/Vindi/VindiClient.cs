@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IntegracaoVindi.Services.Vindi
 {
-    public abstract class VindiClient(IHttpClientFactory factory) : IVindiClient
+    internal abstract class VindiClient(IHttpClientFactory factory) : IVindiClient
     {
         #region Properties
 

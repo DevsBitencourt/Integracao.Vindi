@@ -1,7 +1,7 @@
 using IntegracaoVindi.Services.Vindi.Enums;
 using System.Collections.Generic;
 
-namespace IntegracaoVindi.Services.Vindi.Api.Helpers
+namespace IntegracaoVindi.Services.Vindi.Helpers
 {
     internal static class RouteHelper
     {
