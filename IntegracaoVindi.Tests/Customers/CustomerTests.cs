@@ -1,7 +1,7 @@
 using IntegracaoVindi.Infrastructure.Factory;
 using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Services.Enums;
-using IntegracaoVindi.Services.Filters.Interfaces;
+using IntegracaoVindi.Services.Filters.Customer;
 using IntegracaoVindi.Services.Vindi.Customers;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;

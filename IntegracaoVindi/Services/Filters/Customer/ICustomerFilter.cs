@@ -2,7 +2,7 @@
 using IntegracaoVindi.Services.Enums.Customers;
 using System;
 
-namespace IntegracaoVindi.Services.Filters.Interfaces
+namespace IntegracaoVindi.Services.Filters.Customer
 {
     public interface ICustomerFilter
     {

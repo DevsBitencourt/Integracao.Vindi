@@ -1,7 +1,12 @@
 using IntegracaoVindi.Infrastructure.Exceptions;
+using IntegracaoVindi.Services.Handlers;
+using IntegracaoVindi.Services.Models;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IntegracaoVindi.Services.Vindi
 {
@@ -49,6 +54,38 @@ namespace IntegracaoVindi.Services.Vindi
         {
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(_token));
         }
+
+        #region Private Methods
+
+        protected async Task<Response<T>> Fetch<T>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> action, CancellationToken ct = default)
+        {
+            var client = CreateHttpClient();
+            using var response = await action(client, ct);
+
+            if (!response.IsSuccessStatusCode)
+                return HandleError<T>(response);
+
+            var content = await response.Content.ReadAsStringAsync();
+            return new Response<T>
+            {
+                Data = JsonConvert.DeserializeObject<T>(content),
+                Success = true
+            };
+        }
+
+        private static Response<T> HandleError<T>(HttpResponseMessage response)
+        {
+            IntegrationExceptionHandler.ThrowIfUnauthorized(response);
+
+            return new Response<T>
+            {
+                Success = false,
+                Error = $"{(int)response.StatusCode} - {response.ReasonPhrase}"
+            };
+        }
+
+        #endregion
+
 
         #endregion
     }

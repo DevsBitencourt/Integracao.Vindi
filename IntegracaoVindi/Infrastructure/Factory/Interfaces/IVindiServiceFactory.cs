@@ -1,4 +1,5 @@
 ﻿using IntegracaoVindi.Services.Vindi.Customers;
+using IntegracaoVindi.Services.Vindi.PaymentMethods;
 
 namespace IntegracaoVindi.Infrastructure.Factory.Interfaces
 {
@@ -14,6 +15,12 @@ namespace IntegracaoVindi.Infrastructure.Factory.Interfaces
         /// </summary>
         /// <param name="token">Vindi API key for the target tenant.</param>
         ICustomerService Customers(string token);
+
+        /// <summary>
+        /// Returns a <see cref="IPaymentMethodsService"/> configured with the provided API token.
+        /// </summary>
+        /// <param name="token">Vindi API key for the target tenant.</param>
+        IPaymentMethodsService Payments(string token);
 
         #endregion
     }
