@@ -41,7 +41,6 @@ namespace IntegracaoVindi.Services.Vindi
                 throw new IntegrationCredentialsException();
 
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", GetToken());
-            _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
             return _client;
         }

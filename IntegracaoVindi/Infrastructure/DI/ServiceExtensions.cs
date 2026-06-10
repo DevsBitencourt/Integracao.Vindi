@@ -3,6 +3,7 @@ using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Infrastructure.Options;
 using IntegracaoVindi.Services.Filters.Customer;
 using IntegracaoVindi.Services.Filters.PaymentMethod;
+using IntegracaoVindi.Services.Vindi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http.Headers;
@@ -16,10 +17,11 @@ namespace IntegracaoVindi.Infrastructure.DI
 
         public static IServiceCollection AddVindi(this IServiceCollection services, VindiOptions? configure = null)
         {
-            services.AddTransient<IVindiServiceFactory, VindiServiceFactory>();
-
             configure ??= new VindiOptions();
             services.AddSingleton(configure);
+            services.AddTransient<IVindiServiceFactory, VindiServiceFactory>();
+
+            services.AddTransient<VindiTenantService>();
 
             services
                 .AddFilters()

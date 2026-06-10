@@ -1,4 +1,5 @@
-﻿using IntegracaoVindi.Tests.Fakes;
+﻿using IntegracaoVindi.Services.Vindi.PaymentMethods;
+using IntegracaoVindi.Tests.Fakes;
 using IntegracaoVindi.Tests.Fixtures;
 using NUnit.Framework;
 using System.Net;
@@ -12,12 +13,30 @@ namespace IntegracaoVindi.Tests.PaymentMethods
 
         // ── GetAll ────────────────────────────────────────────────
 
+        private Task<IPaymentMethodsService> ServiceLoad(PaymentMethodStatus status, HttpStatusCode statusCode = HttpStatusCode.OK)
+        {
+            string json = string.Empty;
+
+            switch (status)
+            {
+                case PaymentMethodStatus.GetAll_Success:
+                    json = FixtureLoader.Load("PaymentMethods/paymentMethod_list_success.json");
+                    break;
+
+                case PaymentMethodStatus.GetById_Success:
+                    json = FixtureLoader.Load("PaymentMethods/paymentMethod_getById_success.json");
+                    break;
+
+            }
+
+            var resolver = FakeDIHandler.BuildFactory(statusCode, json);
+            return resolver.PaymentsAsync(4375);
+        }
+
         [Test]
         public async Task GetAll_WhenSuccess_ReturnsSuccessResponse()
         {
-            var json = FixtureLoader.Load("PaymentMethods/paymentMethod_list_success.json");
-            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK, json);
-            var payment = factory.Payments("valid_token:");
+            var payment = await ServiceLoad(PaymentMethodStatus.GetAll_Success);
 
             var response = await payment.GetAll();
 
@@ -32,10 +51,7 @@ namespace IntegracaoVindi.Tests.PaymentMethods
         [Test]
         public async Task GetById_WhenSuccess_ReturnsSuccessResponse()
         {
-            var json = FixtureLoader.Load("PaymentMethods/paymentMethod_getById_success.json");
-            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK, json);
-            var payment = factory.Payments("valid_token:");
-
+            var payment = await ServiceLoad(PaymentMethodStatus.GetById_Success);
             var response = await payment.GetById("42654");
 
             Assert.That(response.Success, Is.True);

@@ -32,7 +32,7 @@ namespace IntegracaoVindi.Services.Vindi.PaymentMethods.Models
         public string PaymentProfileAttempt { get; set; } = string.Empty;
 
         [JsonProperty("due_days")]
-        public object? DueDays { get; set; }
+        public string? DueDays { get; set; }
 
         [JsonProperty("require_gateway")]
         public bool? RequireGateway { get; set; }

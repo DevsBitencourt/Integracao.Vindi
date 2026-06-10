@@ -1,6 +1,7 @@
 ﻿using IntegracaoVindi.Infrastructure.DI;
-using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Infrastructure.Options;
+using IntegracaoVindi.Infrastructure.Resolvers;
+using IntegracaoVindi.Services.Vindi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net;
@@ -10,7 +11,7 @@ namespace IntegracaoVindi.Tests.Fakes
     internal static class FakeDIHandler
     {
         // monta o container apontando o HttpClient para o handler fake
-        internal static IVindiServiceFactory BuildFactory(
+        internal static VindiTenantService BuildFactory(
             HttpStatusCode statusCode,
             string body = "")
         {
@@ -33,9 +34,12 @@ namespace IntegracaoVindi.Tests.Fakes
                     .ConfigurePrimaryHttpMessageHandler(
                         () => new FakeHttpHandler(statusCode, body));
             }
+
+            services.AddScoped<ITenantTokenResolver, TenantTokenResolver>();
+
             return services
                 .BuildServiceProvider()
-                .GetRequiredService<IVindiServiceFactory>();
+                .GetRequiredService<VindiTenantService>();
         }
     }
 }

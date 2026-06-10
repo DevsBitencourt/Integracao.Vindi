@@ -2,7 +2,7 @@
 
 namespace IntegracaoVindi.Services.Filters.PaymentMethod
 {
-    internal interface IPaymentMethodFilter
+    public interface IPaymentMethodFilter
     {
         #region Public Methods
 

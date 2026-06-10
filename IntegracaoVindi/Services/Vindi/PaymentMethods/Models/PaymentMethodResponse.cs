@@ -5,7 +5,7 @@ namespace IntegracaoVindi.Services.Vindi.PaymentMethods.Models
 {  /// <summary>
    /// Represents a Vindi list payment methods.
    /// </summary>
-    public class Payment_Method
+    public class PaymentMethodResponse
     {
         #region Properties
 
