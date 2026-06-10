@@ -23,10 +23,12 @@ jobs:
           dotnet-version: '6.0.x'   # netstandard2.1 é compatível com .NET 6+
 
       - name: Restaurar dependências
-        run: dotnet restore
+        run: |
+          dotnet restore IntegracaoVindi/IntegracaoVindi.csproj
+          dotnet restore IntegracaoVindi.Tests/IntegracaoVindi.Tests.csproj
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build IntegracaoVindi/IntegracaoVindi.csproj --no-restore --configuration Release
 
       - name: Rodar testes
-        run: dotnet test --no-build --configuration Release --verbosity normal
+        run: dotnet test IntegracaoVindi.Tests/IntegracaoVindi.Tests.csproj --configuration Release --verbosity normal
