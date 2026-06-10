@@ -43,8 +43,8 @@ namespace IntegracaoVindi.Tests.PaymentMethods
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.Success, Is.True);
-                Assert.That(response.Data?.Payment_Methods, Has.Count.EqualTo(6));
-                Assert.That(response.Data!.Payment_Methods![0].Id, Is.EqualTo(42654));
+                Assert.That(response.Data?.PaymentMethods, Has.Count.EqualTo(6));
+                Assert.That(response.Data!.PaymentMethods![0].Id, Is.EqualTo(42654));
             }
         }
 

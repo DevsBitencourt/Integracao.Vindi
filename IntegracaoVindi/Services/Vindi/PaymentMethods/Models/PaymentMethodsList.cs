@@ -14,7 +14,7 @@ namespace IntegracaoVindi.Services.Vindi.PaymentMethods.Models
         /// list payment methods
         /// </summary>
         [JsonProperty("payment_methods")]
-        public List<PaymentMethod>? Payment_Methods { get; set; }
+        public List<PaymentMethod>? PaymentMethods { get; set; }
 
         #endregion
     }

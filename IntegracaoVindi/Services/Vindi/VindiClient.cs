@@ -33,20 +33,6 @@ namespace IntegracaoVindi.Services.Vindi
 
         #endregion
 
-        #region Protected Methods
-
-        protected virtual HttpClient CreateHttpClient()
-        {
-            if (string.IsNullOrEmpty(_token))
-                throw new IntegrationCredentialsException();
-
-            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", GetToken());
-
-            return _client;
-        }
-
-        #endregion
-
         #region Private Methods
 
         private string GetToken()
@@ -54,12 +40,15 @@ namespace IntegracaoVindi.Services.Vindi
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(_token));
         }
 
-        #region Private Methods
-
         protected async Task<Response<T>> Fetch<T>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> action, CancellationToken ct = default)
         {
-            var client = CreateHttpClient();
-            using var response = await action(client, ct);
+            if (string.IsNullOrEmpty(_token))
+                throw new IntegrationCredentialsException();
+
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", GetToken());
+
+
+            using var response = await action(_client, ct);
 
             if (!response.IsSuccessStatusCode)
                 return HandleError<T>(response);
@@ -82,9 +71,6 @@ namespace IntegracaoVindi.Services.Vindi
                 Error = $"{(int)response.StatusCode} - {response.ReasonPhrase}"
             };
         }
-
-        #endregion
-
 
         #endregion
     }

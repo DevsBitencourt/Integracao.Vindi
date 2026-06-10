@@ -12,6 +12,8 @@ namespace IntegracaoVindi.Services.Filters.PaymentMethod
 
         IPaymentMethodFilter Code(string code, ConditionalOperator condition = ConditionalOperator.And);
 
+        QueryFilter[] ToFilters();
+
         #endregion
     }
 }
