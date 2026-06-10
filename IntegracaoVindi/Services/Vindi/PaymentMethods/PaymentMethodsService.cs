@@ -26,9 +26,9 @@ namespace IntegracaoVindi.Services.Vindi.PaymentMethods
             return Fetch<PaymentMethodsList>((c, t) => c.GetAsync(_endpoint + query, t), ct);
         }
 
-        public Task<Response<Payment_Methods>> GetById(string id, CancellationToken ct = default)
+        public Task<Response<Payment_Method>> GetById(string id, CancellationToken ct = default)
         {
-            return Fetch<Payment_Methods>((c, t) => c.GetAsync($"{_endpoint}/{id}", t), ct);
+            return Fetch<Payment_Method>((c, t) => c.GetAsync($"{_endpoint}/{id}", t), ct);
         }
 
         #endregion

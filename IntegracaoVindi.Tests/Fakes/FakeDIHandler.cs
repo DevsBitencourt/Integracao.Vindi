@@ -16,21 +16,23 @@ namespace IntegracaoVindi.Tests.Fakes
         {
             var services = new ServiceCollection();
 
-            services
-                .AddHttpClient("vindi", client =>
-                {
-                    client.BaseAddress = new Uri("https://sandbox.vindi.com.br/api/v1"); // qualquer uri válida
-                })
-                .ConfigurePrimaryHttpMessageHandler(
-                    () => new FakeHttpHandler(statusCode, body));
-
             var options = new VindiOptions()
             {
-                SandBox = true
+                Environment = VindiOptionOperator.Fake
             };
 
             services.AddVindi(options);
 
+            if (options.Environment == VindiOptionOperator.Fake)
+            {
+                services
+                    .AddHttpClient("vindi", client =>
+                    {
+                        client.BaseAddress = new Uri("https://sandbox.vindi.com.br/api/v1"); // qualquer uri válida
+                    })
+                    .ConfigurePrimaryHttpMessageHandler(
+                        () => new FakeHttpHandler(statusCode, body));
+            }
             return services
                 .BuildServiceProvider()
                 .GetRequiredService<IVindiServiceFactory>();

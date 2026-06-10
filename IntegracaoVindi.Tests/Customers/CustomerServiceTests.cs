@@ -14,23 +14,7 @@ namespace IntegracaoVindi.Tests.Customers
     public class CustomerServiceTests
     {
         // monta o container apontando o HttpClient para o handler fake
-        private static IVindiServiceFactory BuildFactory(
-            HttpStatusCode statusCode,
-            string body = "")
-        {
-            var services = new ServiceCollection();
-
-            services
-                .AddHttpClient("vindi_fake")
-                .ConfigurePrimaryHttpMessageHandler(
-                    () => new FakeHttpHandler(statusCode, body));
-
-            services.AddVindi();
-
-            return services
-                .BuildServiceProvider()
-                .GetRequiredService<IVindiServiceFactory>();
-        }
+        
 
         // ── GetAll ────────────────────────────────────────────────
 
@@ -38,7 +22,7 @@ namespace IntegracaoVindi.Tests.Customers
         public async Task GetAll_WhenSuccess_ReturnsSuccessResponse()
         {
             var json = FixtureLoader.Load("Customers/customers_list_success.json");
-            var factory = BuildFactory(HttpStatusCode.OK, json);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK, json);
             var customers = factory.Customers("valid_token:");
 
             var response = await customers.GetAll();
@@ -51,7 +35,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task GetAll_WhenNotFound_ReturnsFailureResponse()
         {
-            var factory = BuildFactory(HttpStatusCode.NotFound);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.NotFound);
             var customers = factory.Customers("valid_token:");
 
             var response = await customers.GetAll();
@@ -66,7 +50,7 @@ namespace IntegracaoVindi.Tests.Customers
         public async Task GetById_WhenSuccess_ReturnsCustomer()
         {
             var json = FixtureLoader.Load("Customers/customer_getbyid_success.json");
-            var factory = BuildFactory(HttpStatusCode.OK, json);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK, json);
             var customers = factory.Customers("valid_token:");
 
             var response = await customers.GetById("42");
@@ -79,7 +63,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task GetAll_WhenUnauthorized_ThrowsIntegrationAuthorizationException()
         {
-            var factory = BuildFactory(HttpStatusCode.Unauthorized);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.Unauthorized);
             var customers = factory.Customers("invalid_token:");
 
             try
@@ -96,7 +80,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task GetAll_WhenForbidden_ThrowsIntegrationForbiddenException()
         {
-            var factory = BuildFactory(HttpStatusCode.Forbidden);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.Forbidden);
             var customers = factory.Customers("limited_token:");
 
             try
@@ -113,7 +97,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task Customers_WhenTokenIsEmpty_ThrowsIntegrationCredentialsException()
         {
-            var factory = BuildFactory(HttpStatusCode.OK);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK);
 
             try
             {
@@ -132,7 +116,7 @@ namespace IntegracaoVindi.Tests.Customers
         public async Task Delete_WhenSuccess_ReturnsSuccessResponse()
         {
             var json = FixtureLoader.Load("Customers/customer_delete_id_success.json");
-            var factory = BuildFactory(HttpStatusCode.OK, json);
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK, json);
             var customers = factory.Customers("valid_token:");
 
             var response = await customers.Delete("1");
@@ -145,7 +129,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task GetById_WhenCancelled_ThrowsTaskCancelledException()
         {
-            var factory = BuildFactory(HttpStatusCode.OK, "{}");
+            var factory = FakeDIHandler.BuildFactory(HttpStatusCode.OK, "{}");
             var customers = factory.Customers("valid_token:");
 
             using var cts = new System.Threading.CancellationTokenSource();

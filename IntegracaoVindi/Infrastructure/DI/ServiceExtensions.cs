@@ -21,19 +21,9 @@ namespace IntegracaoVindi.Infrastructure.DI
             configure ??= new VindiOptions();
             services.AddSingleton(configure);
 
-            services.AddFilters();
-
-            if (configure.SandBox == false)
-            {
-                services.AddHttpClient("vindi", client =>
-                {
-                    client.BaseAddress = new Uri(configure.Uri);
-
-                    if (client.DefaultRequestHeaders.Accept.Count == 0 || !client.DefaultRequestHeaders.Accept.Contains(new MediaTypeWithQualityHeaderValue("application/json")))
-                        client.DefaultRequestHeaders.Accept
-                            .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                });
-            }
+            services
+                .AddFilters()
+                .AddHttpsClient(configure);
 
             return services;
         }
@@ -43,6 +33,22 @@ namespace IntegracaoVindi.Infrastructure.DI
             services.AddScoped<ICustomerFilter, CustomerFilter>();
             services.AddScoped<IPaymentMethodFilter, PaymentMethodFilter>();
 
+            return services;
+        }
+
+        private static IServiceCollection AddHttpsClient(this IServiceCollection services, VindiOptions configure)
+        {
+            if (configure.Environment != VindiOptionOperator.Fake)
+            {
+                services.AddHttpClient("vindi", client =>
+                {
+                    client.BaseAddress = new Uri(configure.BaseUri);
+
+                    if (client.DefaultRequestHeaders.Accept.Count == 0 || !client.DefaultRequestHeaders.Accept.Contains(new MediaTypeWithQualityHeaderValue("application/json")))
+                        client.DefaultRequestHeaders.Accept
+                            .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                });
+            }
             return services;
         }
 
