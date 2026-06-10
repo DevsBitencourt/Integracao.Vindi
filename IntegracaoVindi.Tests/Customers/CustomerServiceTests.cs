@@ -2,6 +2,7 @@
 using IntegracaoVindi.Infrastructure.Exceptions;
 using IntegracaoVindi.Infrastructure.Factory.Interfaces;
 using IntegracaoVindi.Tests.Fakes;
+using IntegracaoVindi.Tests.Fixtures;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System.Net;
@@ -36,7 +37,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task GetAll_WhenSuccess_ReturnsSuccessResponse()
         {
-            const string json = "{\"customers\":[{\"id\":1,\"name\":\"João Silva\"}]}";
+            var json = FixtureLoader.Load("Customers/customers_list_success.json");
             var factory = BuildFactory(HttpStatusCode.OK, json);
             var customers = factory.Customers("valid_token:");
 
@@ -64,7 +65,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task GetById_WhenSuccess_ReturnsCustomer()
         {
-            const string json = "{\"customer\":{\"id\":42,\"name\":\"Maria\"}}";
+            var json = FixtureLoader.Load("Customers/customer_getbyid_success.json");
             var factory = BuildFactory(HttpStatusCode.OK, json);
             var customers = factory.Customers("valid_token:");
 
@@ -130,7 +131,7 @@ namespace IntegracaoVindi.Tests.Customers
         [Test]
         public async Task Delete_WhenSuccess_ReturnsSuccessResponse()
         {
-            const string json = "{\"customer\":{\"id\":1}}";
+            var json = FixtureLoader.Load("Customers/customer_delete_id_success.json");
             var factory = BuildFactory(HttpStatusCode.OK, json);
             var customers = factory.Customers("valid_token:");
 

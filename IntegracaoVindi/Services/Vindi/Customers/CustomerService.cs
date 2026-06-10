@@ -1,12 +1,10 @@
 using IntegracaoVindi.Services.Builders;
 using IntegracaoVindi.Services.Filters;
-using IntegracaoVindi.Services.Handlers;
 using IntegracaoVindi.Services.Models;
 using IntegracaoVindi.Services.Vindi.Customers.Models;
-using IntegracaoVindi.Services.Vindi.Helpers;
 using IntegracaoVindi.Services.Vindi.Enums;
+using IntegracaoVindi.Services.Vindi.Helpers;
 using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading;

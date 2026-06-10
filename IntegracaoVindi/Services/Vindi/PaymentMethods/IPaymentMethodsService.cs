@@ -25,7 +25,7 @@ namespace IntegracaoVindi.Services.Vindi.PaymentMethods
         /// </summary>
         /// <param name="id">Payment method ID in Vindi.</param>
         /// <param name="ct">Token to cancel the operation.</param>
-        Task<Response<PaymentMethod>> GetById(string id, CancellationToken ct = default);
+        Task<Response<Payment_Methods>> GetById(string id, CancellationToken ct = default);
 
         #endregion
     }
