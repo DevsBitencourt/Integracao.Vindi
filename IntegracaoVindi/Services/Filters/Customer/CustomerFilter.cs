@@ -1,9 +1,8 @@
 using IntegracaoVindi.Services.Enums;
 using IntegracaoVindi.Services.Enums.Customers;
-using IntegracaoVindi.Services.Filters.Interfaces;
 using System;
 
-namespace IntegracaoVindi.Services.Filters
+namespace IntegracaoVindi.Services.Filters.Customer
 {
     internal sealed class CustomerFilter : FilterBase, ICustomerFilter
     {

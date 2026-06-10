@@ -1,12 +1,10 @@
 using IntegracaoVindi.Services.Builders;
 using IntegracaoVindi.Services.Filters;
-using IntegracaoVindi.Services.Handlers;
 using IntegracaoVindi.Services.Models;
 using IntegracaoVindi.Services.Vindi.Customers.Models;
-using IntegracaoVindi.Services.Vindi.Helpers;
 using IntegracaoVindi.Services.Vindi.Enums;
+using IntegracaoVindi.Services.Vindi.Helpers;
 using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -14,51 +12,14 @@ using System.Threading.Tasks;
 
 namespace IntegracaoVindi.Services.Vindi.Customers
 {
-    internal sealed class CustomerService : VindiClient, ICustomerService
+    internal sealed class CustomerService(IHttpClientFactory factory) : VindiClient(factory), ICustomerService
     {
         #region Properties
 
-        private readonly string _endpoint;
+        private readonly string _endpoint = RouteHelper.GetPath(VindiRoute.Customers);
 
         #endregion
-
         #region Constructors
-
-        public CustomerService(IHttpClientFactory factory) : base(factory)
-        {
-            _endpoint = RouteHelper.GetPath(VindiRoute.Customers);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private async Task<Response<T>> Fetch<T>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> action, CancellationToken ct = default)
-        {
-            var client = CreateHttpClient();
-            using var response = await action(client, ct);
-
-            if (!response.IsSuccessStatusCode)
-                return HandleError<T>(response);
-
-            var content = await response.Content.ReadAsStringAsync();
-            return new Response<T>
-            {
-                Data = JsonConvert.DeserializeObject<T>(content),
-                Success = true
-            };
-        }
-
-        private static Response<T> HandleError<T>(HttpResponseMessage response)
-        {
-            IntegrationExceptionHandler.ThrowIfUnauthorized(response);
-
-            return new Response<T>
-            {
-                Success = false,
-                Error = $"{(int)response.StatusCode} - {response.ReasonPhrase}"
-            };
-        }
 
         #endregion
 

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace IntegracaoVindi.Services.Builders
 {
-    internal class QueryBuilder
+    internal static class QueryBuilder
     {
         #region Public Methods
 

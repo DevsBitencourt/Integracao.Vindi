@@ -13,7 +13,7 @@ namespace IntegracaoVindi.Services.Models
 
         /// <summary>Error description when <see cref="Success"/> is <c>false</c>.</summary>
         public string? Error { get; set; }
-        
+
         /// <summary>Deserialized response data when <see cref="Success"/> is <c>true</c>.</summary>
         public T? Data { get; set; }
 

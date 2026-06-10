@@ -1,0 +1,62 @@
+﻿{
+  "payment_method": {
+    "id": 42654,
+    "public_name": "Cartão de crédito",
+    "name": "Cartão de crédito",
+    "code": "credit_card",
+    "type": "PaymentMethod::CreditCard",
+    "status": "active",
+    "settings": {
+      "automatic_bill_charge": true,
+      "payment_profile_updater": false,
+      "require_cvv": true,
+      "subscription_billing_delay_days": "0",
+      "soft_descriptor": "",
+      "attempt_near_pay_days": "true",
+      "attempt_fallback_acquirer": false,
+      "payment_profile_attempt": "false"
+    },
+    "set_subscription_on_success": "set_without_authorization",
+    "allow_as_alternative": false,
+    "payment_companies": [
+      {
+        "id": 1,
+        "name": "MasterCard",
+        "code": "mastercard"
+      },
+      {
+        "id": 2,
+        "name": "Visa",
+        "code": "visa"
+      },
+      {
+        "id": 3,
+        "name": "American Express",
+        "code": "american_express"
+      },
+      {
+        "id": 9,
+        "name": "Diners Club",
+        "code": "diners_club"
+      },
+      {
+        "id": 11,
+        "name": "Elo",
+        "code": "elo"
+      },
+      {
+        "id": 12,
+        "name": "Hipercard",
+        "code": "hipercard"
+      },
+      {
+        "id": 22,
+        "name": "JCB",
+        "code": "jcb"
+      }
+    ],
+    "maximum_attempts": 5,
+    "created_at": "2020-04-28T15:17:40.000-03:00",
+    "updated_at": "2024-04-12T19:18:56.000-03:00"
+  }
+}

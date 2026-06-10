@@ -10,7 +10,8 @@ namespace IntegracaoVindi.Services.Vindi.Helpers
         private static readonly IDictionary<VindiRoute, string> _routes =
             new Dictionary<VindiRoute, string>
             {
-                { VindiRoute.Customers, "api/v1/customers" }
+                { VindiRoute.Customers, "api/v1/customers" },
+                { VindiRoute.PaymentMethods, "api/v1/payment_methods" }
             };
 
         #endregion
